@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/index}" th:object="${user}">
+<form th:method="POST" th:action="@{/users}" th:object="${user}">
     <lable for="name">Enter name</lable>
     <input type="text" th:field="*{firstName}" id="name"/>
     <br/>

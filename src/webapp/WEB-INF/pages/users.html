@@ -16,7 +16,7 @@
 <table>
     <tr>
         <th colspan="5">
-            <form th:method="GET" th:action="@{index/new}">
+            <form th:method="GET" th:action="@{/users/new}">
                 <input type="submit" value="Create user!"/>
             </form>
         </th>
@@ -33,14 +33,14 @@
         <td th:text="${user.getLastName()}"/>
         <td th:text="${user.getEmail()}"/>
         <td>
-            <form th:method="POST" th:action="@{index/delete(id=${user.getId()})}">
+            <form th:method="POST" th:action="@{/users/delete(id=${user.getId()})}">
                 <input type="submit" value="Delete user"/>
             </form>
         </td>
         <td>
-            <button><a th:href="@{index/edit(id=${user.getId()})}">Update user</a></button>
+            <button><a th:href="@{/users/edit(id=${user.getId()})}">Update user</a></button>
         </td>
     </tr>
 </table>
-
+</body>
 </html>

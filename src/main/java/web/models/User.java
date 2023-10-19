@@ -8,9 +8,7 @@ import javax.transaction.Transactional;
 
 @Entity
 @Table(name = "users")
-@Component
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,10 +24,6 @@ public class User {
 
     public User() {
 
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public User(String firstName, String lastName, String email) {
@@ -65,5 +59,13 @@ public class User {
     @Override
     public String toString() {
         return id+" "+firstName +" "+ lastName +" "+ email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

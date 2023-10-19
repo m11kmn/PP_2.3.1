@@ -4,51 +4,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.dao.UserDaoImpl;
-
-
 import org.springframework.web.bind.annotation.GetMapping;
 import web.models.User;
-import web.service.UserService;
+import web.services.UsersService;
 
 @Controller
+@RequestMapping("/users") // users - это начальная страница
 public class UserController {
 	@Autowired
-	private UserService userService;
+	private UsersService usersService;
 
-	@GetMapping("/index")
+	@GetMapping()
 	public String index(Model model) {
-		model.addAttribute("users", userService.getListUsers());
-		return "/index";
+		model.addAttribute("users", usersService.findAll());
+		return "/users";
 	}
 
-	@GetMapping("/index/new")
+	@GetMapping("/new")
 	public String createUser(Model model) {
 		model.addAttribute("user", new User());
 		return "/new";
 	}
 
-	@PostMapping("/index")
+	@PostMapping()
 	public String createdUser(@ModelAttribute("user") User user) {
-		userService.saveUser(user);
-		return "redirect:/index";
+		usersService.save(user);
+		return "redirect:/users";
 	}
 
-	@PostMapping ("/index/delete")
-	public String deleteUser(@RequestParam("id") int id) {
-		userService.removeUserById(id);
-		return "redirect:/index";
+	@PostMapping ("/delete")
+	public String deleteUser(@RequestParam("id") long id) {
+		usersService.delete(id);
+		return "redirect:/users";
 	}
 
-	@GetMapping("/index/edit")
-	public String editUser(@RequestParam("id") int id, Model model) {
-		model.addAttribute("user", userService.getUserById(id));
+	@GetMapping("/edit")
+	public String editUser(@RequestParam("id") long id, Model model) {
+		model.addAttribute("user", usersService.findOne(id));
 		return "/edit";
 	}
 
-	@PostMapping ("/index/edit")
-	public String editedUser(@ModelAttribute("user") User user, @RequestParam("id") int id) {
-		userService.updateUser(id, user);
-		return "redirect:/index";
+	@PostMapping ("/edit")
+	public String editedUser(@ModelAttribute("user") User user, @RequestParam("id") long id) {
+		usersService.update(id, user);
+		return "redirect:/users";
 	}
 }
